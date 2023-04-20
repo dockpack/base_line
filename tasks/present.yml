@@ -120,4 +120,3 @@
 - name: Create AIDE database
   ansible.builtin.command: /usr/sbin/aide --init
   changed_when: true
-
