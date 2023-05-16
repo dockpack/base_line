@@ -11,8 +11,6 @@ pam_files:
     dest: /etc/pam.d/remote
   - src: sudo.j2
     dest: /etc/pam.d/sudo
-  - src: su.j2
-    dest: /etc/pam.d/su
   - src: system-auth.j2
     dest: /etc/authselect/system-auth
 
