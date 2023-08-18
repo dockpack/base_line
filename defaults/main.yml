@@ -8,3 +8,14 @@ system_users:
   - name: root
     password_expire_max: 365
     password_expire_min: 7
+
+security_packages:
+  - authselect
+  - pam
+  - aide
+  - sysstat
+  - policycoreutils-python-utils
+  - usbguard
+  - psacct
+
+service: usbguard
