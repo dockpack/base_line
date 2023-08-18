@@ -12,6 +12,14 @@
   args:
     creates: /etc/authselect/authselect.conf
 
+- name: Create limits.conf file
+  ansible.builtin.template:
+    src: limits.conf.j2
+    dest: /etc/security/limits.conf
+    mode: 0644
+    owner: root
+    group: root
+
 - name: Create pam files
   ansible.builtin.template:
     src: "{{ item.src }}"
@@ -120,6 +128,24 @@
 - name: Create AIDE database
   ansible.builtin.command: /usr/sbin/aide --init
   changed_when: true
+
+- name: Ensure Firewire is disabled
+  block:
+      - name: Ensure firewire is not installed
+        ansible.builtin.lineinfile:
+            path: /etc/modprobe.d/base_line.conf
+            regexp: "^(#)?install ohci(\\s|$)"
+            line: "install firewire-core /bin/true"
+            create: true
+            mode: ' 0600'
+
+      - name: Ensure firewire is blacklisted
+        ansible.builtin.lineinfile:
+            path: /etc/modprobe.d/blacklist.conf
+            regexp: "^(#)?blacklist firewire-core(\\s|$)"
+            line: "blacklist firewire-core"
+            create: true
+            mode: '0600'
 
 - name: Ensure RDS is disabled
   block:
