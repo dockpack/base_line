@@ -1,2 +1,4 @@
 # ansible_managed
-declare -xr TMOUT=900
+TMOUT=900
+export TMOUT
+readonly TMOUT

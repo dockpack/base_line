@@ -14,7 +14,6 @@ pam_files:
   - src: system-auth.j2
     dest: /etc/authselect/system-auth
 
-service: usbguard
 security_conf_files:
   - src: login.defs.j2
     dest: /etc/login.defs
@@ -22,10 +21,6 @@ security_conf_files:
     dest: /etc/security/faillock.conf
   - src: pwquality.conf.j2
     dest: /etc/security/pwquality.conf
-security_packages:
-  - authselect
-  - pam
-  - aide
 
 security_logindefs_umask: "077"  # literal string
 security_logindefs_pass_max_days: 60
