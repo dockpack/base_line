@@ -105,6 +105,7 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: present
+    mode: '0644'
     insertbefore: ^# Storage
     validate: /usr/bin/bash -n %s
   loop:
@@ -112,7 +113,7 @@
       line: Storage="persistent"
     - regexp: '^\s*Compress='
       line: Compress="yes"
-      
+
 - name: Ensure permissions on all logfiles are configured
   ansible.builtin.file:
     path: /var/log/
@@ -137,54 +138,54 @@
 
 - name: Ensure Firewire is disabled
   block:
-      - name: Ensure firewire is not installed
-        ansible.builtin.lineinfile:
-            path: /etc/modprobe.d/base_line.conf
-            regexp: "^(#)?install ohci(\\s|$)"
-            line: "install firewire-core /bin/true"
-            create: true
-            mode: ' 0600'
+    - name: Ensure firewire is not installed
+      ansible.builtin.lineinfile:
+        path: /etc/modprobe.d/base_line.conf
+        regexp: "^(#)?install ohci(\\s|$)"
+        line: "install firewire-core /bin/true"
+        create: true
+        mode: ' 0600'
 
-      - name: Ensure firewire is blacklisted
-        ansible.builtin.lineinfile:
-            path: /etc/modprobe.d/blacklist.conf
-            regexp: "^(#)?blacklist firewire-core(\\s|$)"
-            line: "blacklist firewire-core"
-            create: true
-            mode: '0600'
+    - name: Ensure firewire is blacklisted
+      ansible.builtin.lineinfile:
+        path: /etc/modprobe.d/blacklist.conf
+        regexp: "^(#)?blacklist firewire-core(\\s|$)"
+        line: "blacklist firewire-core"
+        create: true
+        mode: '0600'
 
 - name: Ensure RDS is disabled
   block:
-      - name: Ensure RDS is not installed
-        ansible.builtin.lineinfile:
-            path: /etc/modprobe.d/base_line.conf
-            regexp: "^(#)?install rds(\\s|$)"
-            line: "install rds /bin/true"
-            create: true
-            mode: ' 0600'
+    - name: Ensure RDS is not installed
+      ansible.builtin.lineinfile:
+        path: /etc/modprobe.d/base_line.conf
+        regexp: "^(#)?install rds(\\s|$)"
+        line: "install rds /bin/true"
+        create: true
+        mode: ' 0600'
 
-      - name: Ensure RDS is blacklisted
-        ansible.builtin.lineinfile:
-            path: /etc/modprobe.d/blacklist.conf
-            regexp: "^(#)?blacklist rds(\\s|$)"
-            line: "blacklist rds"
-            create: true
-            mode: '0600'
+    - name: Ensure RDS is blacklisted
+      ansible.builtin.lineinfile:
+        path: /etc/modprobe.d/blacklist.conf
+        regexp: "^(#)?blacklist rds(\\s|$)"
+        line: "blacklist rds"
+        create: true
+        mode: '0600'
 
 - name: Ensure TIPC is disabled
   block:
-      - name: Ensure TIPC is not installed
-        ansible.builtin.lineinfile:
-            path: /etc/modprobe.d/base_line.conf
-            regexp: "^(#)?install tipc(\\s|$)"
-            line: "install tipc /bin/true"
-            create: true
-            mode: ' 0600'
+    - name: Ensure TIPC is not installed
+      ansible.builtin.lineinfile:
+        path: /etc/modprobe.d/base_line.conf
+        regexp: "^(#)?install tipc(\\s|$)"
+        line: "install tipc /bin/true"
+        create: true
+        mode: ' 0600'
 
-      - name: Ensure TIPC is blacklisted
-        ansible.builtin.lineinfile:
-            path: /etc/modprobe.d/blacklist.conf
-            regexp: "^(#)?blacklist tipc(\\s|$)"
-            line: "blacklist tipc"
-            create: true
-            mode: '0600'
+    - name: Ensure TIPC is blacklisted
+      ansible.builtin.lineinfile:
+        path: /etc/modprobe.d/blacklist.conf
+        regexp: "^(#)?blacklist tipc(\\s|$)"
+        line: "blacklist tipc"
+        create: true
+        mode: '0600'
